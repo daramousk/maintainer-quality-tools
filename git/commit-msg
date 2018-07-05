@@ -1,0 +1,14 @@
+#!/bin/sh
+
+validate_message(){
+    if cat $1 | grep -E "^\[(ADD|DEL|UPD|IMP|FIX|MIG)\]\[.+\]#[1-9]+-.+"; then
+        exit 0;
+    else
+        echo "Improper commit message.
+        Make sure your message is formatted in the following way:
+        [ADD|DEL|UPD|IMP|FIX|MIG][host]#issue_number-short-issue-description"
+        exit 1;
+    fi
+}
+
+validate_message $*
